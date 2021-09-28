@@ -1,0 +1,181 @@
+<div class="col-md-8 col-12 mr-auto ml-auto" >
+  <div class="d-flex justify-content-center" *ngIf="!loaded">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-secondary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-danger" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-info" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-light" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <!--      Wizard container        -->
+  <div class="wizard-container" *ngIf="loaded">
+    <div class="card card-wizard active" data-color="rose" id="wizardProfile">
+      <form [formGroup]="schoolForm" (ngSubmit)="submitSchool()" >
+        <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+        <div class="card-header text-center">
+          <h3 class="card-title">
+            About my School
+          </h3>
+          <h5 class="card-description">This are the informations about the School</h5>
+        </div>
+        <div class="wizard-navigation">
+          <ul class="nav nav-pills">
+            <li class="nav-item" style="width: 33.3333%;">
+              <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
+                About
+              </a>
+            </li>
+            
+          </ul>
+        <div class="moving-tab" style="width: 229.333px; transform: translate3d(-8px, 0px, 0px); transition: transform 0s ease 0s;">
+                About
+              </div>
+         </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="about">
+              <h5 class="info-text"> The basic information </h5>
+              <div class="row justify-content-center">
+                <div class="col-sm-4">
+                  <div class="picture-container">
+                    <div class="picture">
+                      <img [src]="school_logo" width="100%" height="100%" class="picture-src" id="wizardPicturePreview" title="">
+                      <input type="file" id="wizard-picture" (change)="uploaLogo($event)">
+                    </div>
+                    <h6 class="description">Choose School Logo</h6>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="input-group form-control-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">school</i>
+                      </span>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                      <label for="school_name" >School Name (required)</label>
+                         <input type="text" class="form-control" id="school_name" formControlName="school_name"  name="school_name" required="true" aria-required="true">
+                     
+                    </div>
+                  </div>
+                  <div class="input-group form-control-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">face</i>
+                      </span>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                      <label for="school_owner" >Proprietors Name (required)</label>
+                      <input type="text" class="form-control" id="school_owner" formControlName="school_owner"   name="school_owner" required="" aria-required="true">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-10 mt-3">
+                  <div class="input-group form-control-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">email</i>
+                      </span>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                      <label for="exampleInput1" >Email (required)</label>
+                      <input type="email" class="form-control" id="email" formControlName="email"  name="email" required="" aria-required="true">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-10 mt-3">
+                  <div class="input-group form-control-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-hourglass" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                    <div class="form-group bmd-form-group  is-filled">
+                      <label for="established_at" >Date of Establishemnt (required)</label>
+                      <input type="text" class="form-control datepicker " id="established_at" 
+                       name="established_at" required="" formControlName="established_at" 
+                       pattern="\d{4}-\d{2}-\d{4}" aria-required="true">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-10 mt-3">
+                  <div class="input-group form-control-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">home</i>
+                      </span>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                      <label for="address" >Adresss (required)</label>
+                      <textarea class="form-control" id="address" formControlName="address"   name="address" required="" aria-required="true">
+
+                      </textarea>
+                     
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-10 mt-3">
+                  <div class="input-group form-control-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">phone</i>
+                      </span>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                      <label for="phone_no1" class="">Office Phone No (required)</label>
+                      <input type="email" class="form-control" id="phone_no1" formControlName="phone_no1"  name="phone_no1" required="" aria-required="true">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-10 mt-3">
+                  <div class="input-group form-control-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons"><i class="fa fa-mobile" aria-hidden="true"></i></i>
+                      </span>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                      <label for="phone_no2" class="">Mobile</label>
+                      <input type="email" class="form-control" formControlName="phone_no2"  id="phone_no2" name="phone_no2" required="" aria-required="true">
+                    <span  ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+         
+          </div>
+        </div>
+        <div class="card-footer">
+          <input type="hidden" class="form-control" formControlName="id"    id="id" name="id" required="" aria-required="true">
+          <div class="ml-auto">
+            <input type="submit" [disabled]="schoolForm.valid" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Update">
+          
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- wizard container -->
+</div>
+

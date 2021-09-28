@@ -1,0 +1,400 @@
+<h3 class="">Educo Finance</h3>
+<br>
+<!-- First set of widget -->
+<div class="row ">
+  <div class="col-lg-3 col-md-6 col-sm-6" routerLink="school">
+    <div class="card card-stats">
+      <div class="card-header card-header-rose card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">school</i>
+        </div>
+        <p class="card-category">About Our School</p>
+        <h3 class="card-title">1</h3>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons">book</i>About our School 
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    <div class="col-lg-3 col-md-6 col-sm-6" routerLink="school-classes">
+      <div class="card card-stats">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">class</i>
+          </div>
+          <p class="card-category">Our Classes</p>
+          <h3 class="card-title">{{no_of_classes}}</h3>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">local_offer</i> Go to Our Classes 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6" routerLink="school-students">
+      <div class="card card-stats">
+        <div class="card-header card-header-success card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">people</i>
+          </div>
+          <p class="card-category">Students</p>
+          <h3 class="card-title">{{no_of_student}}</h3>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">date_range</i> Last 24 Hours
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6" routerLink="school-departments" style="cursor:pointer" >
+      <div class="card card-stats">
+        <div class="card-header card-header-info card-header-icon">
+          <div class="card-icon">
+            <i class="fa fa-group"></i>
+          </div>
+          <p class="card-category" >Department</p>
+          <h3 class="card-title">{{ no_of_departments}}</h3>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">department</i> Just Updated
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of First set of widget -->
+
+
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">people</i>
+          </div>
+          <h4 class="card-title">
+            <span>
+              <small
+                >All Students | {{ sessionName }} SESSION -
+                {{ termName }} TERM</small
+              >
+            </span>
+            <span
+              style="float: right; cursor: pointer"
+              rel="tooltip"
+              title="New Student"
+              class="btn btn-primary btn-link btn-sm"
+              data-toggle="modal"
+              data-target="#add-student-modal"
+            >
+              <i class="fa fa-plus"></i>
+            </span>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-center" *ngIf="!loaded">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-danger" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-info" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-dark" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="table-responsive" *ngIf="loaded">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              class="row-border hover"
+            >
+              <thead class="text-primary">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Class</th>
+                  <th>DOB</th>
+                  <th>Address</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let student of students; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ student.last_name }} - {{ student.first_name }}</td>
+                  <td>{{ student.gender }}</td>
+                  <td>{{ student.class_name }}</td>
+                  <td>{{ student.dob }}</td>
+                  <td>{{ student.address }}</td>
+  
+                  <td class="td-actions">
+                    <button
+                      type="button"
+                      rel="tooltip"
+                      title="edit"
+                      class="btn btn-info btn-outline btn-sm"
+                     
+                      data-toggle="modal"
+                      data-target="#edit-student-modal"
+                      (click)="setId(student.id)"
+                    >
+                      <i class="material-icons">edit</i>
+                    </button>
+                   
+                    <button
+                    type="button"
+                    rel="tooltip"
+                    title="payment"
+                    class="btn btn-success btn-outline btn-sm"
+                   
+                   
+                    (click)="navigate(student.id,student.class_id)"
+                   
+                  >  <span>&#8358;</span>
+                    
+                  </button>
+                   
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+ 
+ 
+
+
+
+
+  <!-- department modal -->
+<div
+class="modal fade"
+id="add-student-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="add-student-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      <form  #addStudentForm="ngForm" (ngSubmit)="onSubmitAddStudentModal(addStudentForm)" >
+          <div class="modal-header">
+              <h4 class="modal-title">Add New Student</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                <i class="material-icons">clear</i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="first_name" class="">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" [(ngModel)]="first_name" required autocomplete="off"
+                 required
+                 />
+                 <span class="error">Name is required</span>
+              </div>
+              <div class="form-group">
+                <label for="middle_name" class="">Middle Name</label>
+                <input type="text" class="form-control" id="middle_name" name="middle_name" [(ngModel)]="middle_name"  autocomplete="off"
+                 required
+                 />
+               </div>
+               <div class="form-group">
+                <label for="first_name" class="">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" [(ngModel)]="last_name" required autocomplete="off"
+                 required
+                 />
+                 <span class="error">Last Name is required</span>
+              </div>
+              <div class="form-group">
+                <label for="first_name" class="">Select Class</label>                      
+                <select size="1" class=" form-control"
+                id="class_id" name="class_id" [(ngModel)] = "classes">
+                    <option *ngFor="let class of classes; let i = index" value={{class.id}}>{{ class.name}}</option>
+               </select>
+                 
+                  
+              </div>
+              <div class="form-group">
+                <label for="gender" class="">Gender</label>
+               <select class="form-control" id="gender" name="gender" [(ngModel)]="gender" required >
+                <option disabled >--Choose gender--</option>
+                 <option value="Male">Male</option>
+                 <option value="Female">Female</option>
+               </select>
+              </div>
+              <div class="form-group">
+                <label for="address" class="">Address</label>
+                <input type="text" class="form-control" id="address" name="address" [(ngModel)]="address"  autocomplete="off"
+                 required
+                 />
+                
+              </div>
+              <div class="form-group">
+                <label for="email" class="">Email</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email"  autocomplete="off"
+                 required
+                 />
+                
+              </div>
+              
+              <div class="form-group">
+                <label for="dob" class="">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob" [(ngModel)]="dob" required autocomplete="off"
+                 required
+                 />
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button
+               type="submit" class="btn btn-link">Save Changes</button>
+              <button
+                type="button"
+                class="btn btn-danger btn-link"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+           
+      </form>
+    
+  </div>
+</div>
+</div>
+
+
+
+
+
+<div  id="edit-student-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form  #editStudentForm="ngForm" (ngSubmit)="onSubmitEditStudentModal(editStudentForm)" >
+        <div class="modal-header">
+            <h4 class="modal-title">Add New Student</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              <i class="material-icons">clear</i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="first_name" class="">First Name</label>
+              <input type="text" class="form-control" id="first_name" name="first_name" [(ngModel)]="first_name" required autocomplete="off"
+               required
+               />
+               <span class="error">Name is required</span>
+            </div>
+            <div class="form-group">
+              <label for="middle_name" class="">Middle Name</label>
+              <input type="text" class="form-control" id="middle_name" name="middle_name" [(ngModel)]="middle_name"  autocomplete="off"
+               required
+               />
+             </div>
+             <div class="form-group">
+              <label for="first_name" class="">Last Name</label>
+              <input type="text" class="form-control" id="last_name" name="last_name" [(ngModel)]="last_name" required autocomplete="off"
+               required
+               />
+               <span class="error">Last Name is required</span>
+            </div>
+            <div class="form-group">
+              <label for="gender" class="">Class</label>               
+              <select size="1" class=" form-control"
+              id="class_id" name="class_id" [(ngModel)] = "classes">
+              <option value="{{ class_id}}" [selected]="class_id">{{ class_name}}</option>
+                  <option *ngFor="let class of classes; let i = index" value={{class.id}}>{{ class.name}}</option>
+             </select>
+               
+                
+            </div>
+            <div class="form-group">
+              <label for="gender" class="">Gender</label>
+             <select class="form-control" id="gender" name="gender" [(ngModel)]="gender" required >
+              <option value="{{ gender }}" [selected]="gender">{{ gender }}</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+             </select>
+            </div>
+            <div class="form-group">
+              <label for="address" class="">Address</label>
+              <input type="text" class="form-control" id="address" name="address" [(ngModel)]="address"  autocomplete="off"
+               required
+               />
+              
+            </div>
+            <div class="form-group">
+              <label for="email" class="">Email</label>
+              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email"  autocomplete="off"
+               required
+               />
+              
+            </div>
+            
+            <div class="form-group">
+              <label for="dob" class="">Date of Birth</label>
+              <input type="date" class="form-control" id="dob" name="dob" [(ngModel)]="dob" required autocomplete="off"
+               required
+               />
+              </div>
+              <input type="hidden" class="form-control" id="id" name="id" [(ngModel)]="StudentId" required autocomplete="off"
+           
+              />
+          </div>
+          <div class="modal-footer">
+            <button
+             type="submit" class="btn btn-link">Save Changes</button>
+            <button
+              type="button"
+              class="btn btn-danger btn-link"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+         
+    </form>
+  
+     
+    </div>
+  </div>
+</div>

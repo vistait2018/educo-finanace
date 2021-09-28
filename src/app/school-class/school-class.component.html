@@ -1,0 +1,198 @@
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">assignment</i>
+          </div>
+          <h4 class="card-title ">School Classes
+              <span 
+              style="float:right; cursor:pointer;" 
+               rel="tooltip"
+              title="New Class"
+              class="btn btn-primary btn-link btn-sm"
+              data-toggle="modal"
+              data-target="#new-class-modal">
+              <i class="fa fa-plus"></i>
+            </span>
+          </h4>
+          
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-center" *ngIf="!loaded">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-danger" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-info" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-dark" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="table-responsive" *ngIf="loaded">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              class="row-border hover"
+            >
+              <thead class="text-primary">
+                <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let class of collection; let i = index" >
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ class.name  }}</td>
+                  <td class="td-actions">
+                    <button
+                      type="button"
+                      rel="tooltip"
+                      title="Edit Class"
+                      class="btn btn-primary btn-link btn-sm"
+                      data-toggle="modal"
+                      data-target="#edit-class-modal"
+                      (click)="setClass(class.id, class.name)"
+                    >
+                      <i class="material-icons">edit</i>
+                    </button>
+                    <button
+                      type="button"
+                      rel="tooltip"
+                      title="Remove"
+                      class="btn btn-danger btn-link btn-sm"
+                      (click)="deleteId(class.id)"
+                    >
+                      <i class="material-icons">close</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div
+    class="modal fade"
+    id="edit-class-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="edit-class-modal-label"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <form #classForm="ngForm" (ngSubmit)="onSubmitEdit(classForm)" >
+              <div class="modal-header">
+                  <h4 class="modal-title">Edit School Class</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-hidden="true"
+                  >
+                    <i class="material-icons">clear</i>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  
+                    <div class="form-group">
+                      <label for="name" class="">Class Name</label>
+                      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                       required
+                       />
+                       <span class="error">Name is required</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-link">Save Changes</button>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-link"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+                <input type="hidden" name="id" [(ngModel)]="id" />
+          </form>
+        
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <!-- //new Class -->
+  <div
+  class="modal fade"
+  id="new-class-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="new-class-modal-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form #newClassForm="ngForm" (ngSubmit)="onSubmitNew(newClassForm)" >
+            <div class="modal-header">
+                <h4 class="modal-title">Create School Class</h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  <i class="material-icons">clear</i>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+                  <div class="form-group">
+                    <label for="name" class="">Class Name</label>
+                    <input type="text"  required class="form-control" id="name" value=""  name="name" [(ngModel)]="name" autocomplete="off"
+                     required 
+                     />
+                     <span class="error" >Name is Required</span>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-link">Save Changes</button>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-link"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+              
+        </form>
+      
+    </div>
+  </div>
+</div>

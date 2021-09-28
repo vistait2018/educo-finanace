@@ -1,0 +1,362 @@
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">assignment</i>
+          </div>
+          <h4 class="card-title ">School Categories
+              <span 
+              style="float:right; cursor:pointer;" 
+               rel="tooltip"
+              title="New Category"
+              class="btn btn-primary btn-link btn-sm"
+              data-toggle="modal"
+              data-target="#add-category-modal"
+              (click)="clearInput()"
+              >
+             
+              <i class="fa fa-plus"></i>
+            </span>
+          </h4>
+          
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-center" *ngIf="!loaded">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-danger" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-info" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-dark" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="table-responsive" *ngIf="loaded">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              class="row-border hover"
+            >
+              <thead class="text-primary">
+                <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Maximum Level</th>
+               <th>Actions</th>
+               </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let category of categories; let i = index" >
+                  <td>{{ i+1 }}</td>
+                  <td >{{ category.name}}</td>
+                  <td id=categorycenter>{{ category.level}}</td>
+                  <td class="td-actions">
+                    <button
+                      type="button"
+                      rel="tooltip"
+                      title="Edit Class"
+                      class="btn btn-primary btn-link btn-sm myCursor"
+                      data-toggle="modal"
+                      data-target="#edit-category-modal"
+                      (click)="setClass(category.id,category.name,category.level)"
+                    >
+                      <i class="material-icons">edit</i>
+                    </button>
+                    <button
+                      type="button"
+                      rel="tooltip"
+                      title="Remove"
+                      class="btn btn-danger btn-link btn-sm myCursor"
+                      (click)="delete(category.id)"
+                    >
+                      <i class="material-icons">close</i>
+                    </button>
+                    <button
+                    type="button"
+                    rel="tooltip"
+                    title="View departmnet"
+                    class="btn btn-info btn-link btn-sm myCursor"
+                    data-toggle="modal"
+                      data-target="#show-classes-modal"
+                      (focus)="setClass(category.id,category.name,category.level)"
+                      (mouseenter)="setClass(category.id,category.name,category.level)"
+                      (click)="getDepertmentInCategory(category.id)"
+                  >
+                    <i class="material-icons">visibility</i>
+                  </button>
+                    <button
+                    type="button"
+                    rel="tooltip"
+                    title="Add departmnet"
+                    class="btn btn-success btn-link btn-sm myCursor"
+                    data-toggle="modal"
+                      data-target="#add-department-modal"
+                      (focus)="setClass(category.id,category.name,category.level)"
+                      (mouseenter)="setClass(category.id,category.name,category.level)"
+                      
+                  >
+                    <i class="material-icons">add</i>
+                  </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div
+  class="modal fade"
+  id="edit-category-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="edit-class-modal-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form #editCategoryForm="ngForm" (ngSubmit)="onSubmitEditCategory(newCategoryForm)" >
+            <div class="modal-header">
+                <h4 class="modal-title">Edit School Categories</h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  <i class="material-icons">clear</i>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+                  <div class="form-group">
+                    <label for="name" class="">Class Name</label>
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                     required
+                     />
+                     <span class="error">Name is required</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="name" class="">Maximum level</label>
+                    <input type="number"  class="form-control" id="level" name="level" [(ngModel)]="level" required autocomplete="off"
+                     required
+                     />
+                     <span class="error">Max Level is required</span>
+                     <input type="hidden" id="id" name="id" [(ngModel)]="id" />
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-link">Save Changes</button>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-link"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+             
+        </form>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+<div
+class="modal fade"
+id="add-category-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="edit-category-modal-label"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      <form #newCategoryForm="ngForm" (ngSubmit)="onSubmitNewCategory(newCategoryForm)" >
+          <div class="modal-header">
+              <h4 class="modal-title">Add New School Categories</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                <i class="material-icons">clear</i>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+                <div class="form-group">
+                  <label for="name" class="">Class Name</label>
+                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                   required
+                   />
+                   <span class="error">Name is required</span>
+                </div>
+                <div class="form-group">
+                  <label for="name" class="">Maximum level</label>
+                  <input type="number" number="true"  class="form-control" id="level" max="6" min="1" name="level" [(ngModel)]="level" required autocomplete="off"
+                   required
+                   />
+                   <span class="error">Max Level is required</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-link">Save Changes</button>
+              <button
+                type="button"
+                class="btn btn-danger btn-link"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+            <input type="hidden" id="id" name="id" [(ngModel)]="id" />
+      </form>
+    
+  </div>
+</div>
+</div>
+
+
+<!-- department modal -->
+<div
+class="modal fade"
+id="add-department-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="add-department-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      <form  #adddeptToCatForm="ngForm" (ngSubmit)="onSubmitAdddeptToCatForm(adddeptToCatForm)" >
+          <div class="modal-header">
+              <h4 class="modal-title">Add New Departments</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                <i class="material-icons">clear</i>
+              </button>
+            </div>
+            <div class="modal-body">
+                                        
+              <h4>Choose School Department to add to category</h4>
+              <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Department" data-size="7"
+              id="department_ids" name="department_ids" [(ngModel)] = "myDeparttment">
+               <option selected>--Choose Department--</option>
+               <option *ngFor="let department of departments; let i = index" value={{department.id}}>{{ department.name}}</option>
+             </select>
+               
+                
+            </div>
+            <div class="modal-footer">
+              <button
+               type="submit" class="btn btn-link">Save Changes</button>
+              <button
+                type="button"
+                class="btn btn-danger btn-link"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+            <input type="hidden" id="id" name="id" [(ngModel)]="id" />
+      </form>
+    
+  </div>
+</div>
+</div>
+
+
+
+<div
+class="modal fade"
+id="show-classes-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="show-classes-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      
+          <div class="modal-header">
+              <h4 class="modal-title">All Departments in {{ name | uppercase}}</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                <i class="material-icons">clear</i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ng-template #templateMess>
+               <div class="alert alert-success">
+                 No Content
+               </div>>
+            </ng-template>             
+              <div   class="table-responsive">
+               <table class="table table-striped">
+                 <tr>
+                   <th>#</th>
+                   <th>Class Name</th>
+                 </tr>
+                 <tr *ngFor="let dept of depertmentInCategory; let i=index">
+                  <td>{{ i+1}}</td>
+                  <td>{{ dept.name }}</td>
+                   
+                 </tr>
+               </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+           
+              <button
+                type="button"
+                class="btn btn-danger btn-link"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+     
+    
+  </div>
+</div>
+</div>
+
+
+
+

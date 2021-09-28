@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+      
+      <div class="card">
+
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">user</i>
+          </div>
+          <h4 class="card-title ">
+             <span> <small>All Users </small>
+             </span>
+              <span 
+              style="float:right; cursor:pointer;" 
+               rel="tooltip"
+              title="New Student"
+              class="btn btn-primary btn-link btn-sm"
+              data-toggle="modal"
+              data-target="#add-user-modal">
+              <i class="fa fa-plus"></i>
+            </span>
+          </h4>
+
+        
+        </div>
+        <div class="card-body">
+        
+          
+          <div class="table-responsive">
+            <table  class="table table-bordered 
+            table-striped table-hover ">
+              <thead class="text-primary">
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users ; let i = index" >
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ user.name }} </td>
+                  <td>{{ user.email }} </td>
+                                   
+                  <td class="td-actions">
+                   <button
+                   type="button"
+                   rel="tooltip"
+                   title="edit"
+                   class="btn btn-info btn-link btn-sm"
+                   >
+                   <i class="material-icons">edit</i>
+                   </button>
+                   <button
+                   type="button"
+                   rel="tooltip"
+                   title="Remove"
+                   class="btn btn-warning btn-link btn-sm"
+                   >
+                   <i class="fa fa-eye" aria-hidden="true"></i>
+                   </button>
+                   
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> 
+        </div>
+    </div>
+  </div>
+  
+  
+  <div
+class="modal fade"
+id="add-user-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="add-user-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      <form #addUserForm="ngForm" (ngSubmit)="onSubmitUserForm(addUserForm)" >
+          <div class="modal-header">
+              <h4 class="modal-title">Add School USer</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              >
+                <i class="material-icons">clear</i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="name" class="">UserName</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                required
+                />
+              </div> 
+              <div class="form-group">
+                <label for="email" class="">Email</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required autocomplete="off"
+                required
+                />
+              </div> 
+             
+                 
+                <input type="hidden" class="form-control" id="id" name="id" [(ngModel)]="id" required autocomplete="off"
+                     required
+                     />
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-link">Save Changes</button>
+              <button
+                type="button"
+                class="btn btn-danger btn-link"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+            
+      </form>
+    
+  </div>
+</div>
+</div>
+
+  
+  

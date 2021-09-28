@@ -1,0 +1,23 @@
+input.ng-invalid{
+    border-bottom:  red;
+}
+
+
+input.ng-valid{
+    border-bottom:   green;
+}
+
+.error{
+    color:red
+}
+
+
+#categorycenter{
+    padding-right: 2rem;
+    padding-left: 3.2rem;
+}
+
+
+.myCursor{
+    cursor:pointer;
+}

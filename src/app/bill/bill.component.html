@@ -1,0 +1,795 @@
+
+
+<div class="accordion" id="accordionExample">
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-icon card-header-rose"  id="headingOne">
+        <div class="card-icon">
+          <i class="material-icons">Money</i>
+        </div> 
+        <h2 class="card-title mb-0  text-center">
+            <span 
+            style="float:right; cursor:pointer;" 
+             rel="tooltip"
+            title="New  Class Specific Compulsory Bill"
+            class="btn btn-primary btn-link btn-sm"
+            data-toggle="modal"
+            data-target="#add-compulsory-bill-modal">
+            <i class="fa fa-plus"></i>
+          </span>
+          <button class="btn btn-link "  type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Class Specific Compulsory Bill
+          </button>
+        </h2>
+        
+      </div>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="d-flex justify-content-center" *ngIf="!loaded">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive" *ngIf="loaded">
+          <table
+            datatable
+            [dtOptions]="dtOptions1"
+            [dtTrigger]="dtTrigger1"
+            class="row-border hover"
+          >
+            <thead class="text-primary">
+              <tr >
+              <th>#</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Class</th>
+              <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bill of compulsoryBills; let i = index" >
+                <td>{{ i+1 }}</td>
+                <td>{{bill.name}}</td>
+                <td>{{ bill.amount}}</td>
+                <td>{{ bill.description}}</td>
+                <td>{{ bill.class_name }}</td>
+                <td class="td-actions">
+                
+                  <button
+                    type="button"
+                    rel="tooltip"
+                    title="Remove"
+                    class="btn btn-danger btn-link btn-sm"
+                    (click)="setId(bill.id,0)"
+                  >
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12">
+    <div class="card mb-0 text-center">
+      <div class="card-header card-header-icon card-header-rose" id="headingTwo">
+        <div class="card-icon">
+          <i class="material-icons">Money</i>
+        </div>
+        <h4 class="card-title ">
+            <span 
+            style="float:right; cursor:pointer;" 
+             rel="tooltip"
+            title="New Compulsory Bill"
+            class="btn btn-primary btn-link btn-sm"
+            data-toggle="modal"
+            data-target="#add-specificcompulsory-bill-modal">
+            <i class="fa fa-plus"></i>
+          </span>
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            Compulsory Bill
+          </button>
+        </h4>
+        
+      </div>
+      <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+      
+        <div class="d-flex justify-content-center" *ngIf="!loaded">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive" *ngIf="loaded">
+          <table
+            datatable
+            [dtOptions]="dtOptions1"
+            [dtTrigger]="dtTrigger1"
+            class="row-border hover"
+          >
+            <thead class="text-primary">
+              <tr >
+              <th>#</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sbbill of specificAndCompulsoryBill; let i = index" >
+                <td>{{ i+1 }}</td>
+                <td>{{sbbill.name}}</td>
+                <td>{{ sbbill.amount}}</td>
+                <td>{{ sbbill.description}}</td>
+                
+                <td class="td-actions">
+                
+                  <button
+                    type="button"
+                    rel="tooltip"
+                    title="Remove"
+                    class="btn btn-danger btn-link btn-sm"
+                    (click)="setId(sbbill.id,0)"
+                  >
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-icon card-header-rose" id="headingThree">
+        <div class="card-icon">
+          <i class="material-icons">Money</i>
+        </div>
+        <h4 class="card-title mb-0 text-center ">
+            <span 
+            style="float:right; cursor:pointer;" 
+             rel="tooltip"
+            title="New General Bill"
+            class="btn btn-primary btn-link btn-sm"
+            data-toggle="modal"
+            data-target="#add-general-bill-modal">
+            <i class="fa fa-plus"></i>
+          </span>
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            General Bill
+          </button>
+        </h4>
+        
+      </div>
+      <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="d-flex justify-content-center" *ngIf="!loaded">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive" *ngIf="loaded">
+          <table
+          datatable
+          [dtOptions]="dtOptions2"
+          [dtTrigger]="dtTrigger2"
+            class="row-border hover"
+          >
+            <thead class="text-primary">
+              <tr >
+              <th>#</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bill of generalBill; let i = index" >
+                <td>{{ i+1 }}</td>
+                <td>{{bill.name}}</td>
+                <td>{{ bill.amount}}</td>
+                <td>{{ bill.description}}</td>
+                <td class="td-actions">
+                  <button
+                    type="button"
+                    rel="tooltip"
+                    title="Remove"
+                    class="btn btn-danger btn-link btn-sm"
+                   (click)="setId(bill.id,1)"
+                   
+                  >
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+ 
+
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-icon card-header-rose" id="headingFour">
+        <div class="card-icon">
+          <i class="material-icons">Money</i>
+        </div>
+        <h4 class="card-title mb-0 text-center ">
+            <span 
+            style="float:right; cursor:pointer;" 
+             rel="tooltip"
+            title="New Store Bill"
+            class="btn btn-primary btn-link btn-sm"
+            data-toggle="modal"
+            data-target="#add-store-bill-modal">
+            <i class="fa fa-plus"></i>
+          </span>
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+            Store Bill
+          </button>
+        </h4>
+        
+      </div>
+      <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="d-flex justify-content-center" *ngIf="!loaded">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div class="table-responsive" *ngIf="loaded">
+          <table
+          datatable
+          [dtOptions]="dtOptions3"
+          [dtTrigger]="dtTrigger3"
+            class="row-border hover"
+          >
+            <thead class="text-primary">
+              <tr >
+              <th>#</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bill of storeBills; let i = index" >
+                <td>{{ i+1 }}</td>
+                <td>{{bill.name}}</td>
+                <td>{{ bill.amount}}</td>
+                <td>{{ bill.description}}</td>
+               <td class="td-actions">
+                 
+                  <button
+                    type="button"
+                    rel="tooltip"
+                    title="Remove"
+                    class="btn btn-danger btn-link btn-sm"
+                    (click)="setId(bill.id,2)"
+                  >
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+
+
+ <div 
+class="modal fade"
+id="add-compulsory-bill-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="add-compulsory-bill-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      
+         
+            <div class="modal-content">
+              <form  #addClassForm="ngForm" (ngSubmit)="onSubmitClassesForm(addClassForm)" >
+                <div class="modal-header">
+                  <h4 class="modal-title">New Compulsory Bill</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-hidden="true"
+                  >
+                    <i class="material-icons">clear</i>
+                  </button>
+                </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="name" class="">Bill Name</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                         required
+                         />
+                         <span class="error">Amount is required</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="amount" class="">Amount</label>
+                        <input type="text" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control" id="amount" name="amount" [(ngModel)]="amount" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Amount is required</span>
+                      </div> 
+                      <div class="form-group">
+                        <label for="description" class="">Description</label>
+                        <input type="text"  class="form-control" id="description" name="description" [(ngModel)]="description" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Description is required</span>
+                      </div> 
+                      <label for="amount" class="">Select Class</label>         
+                      <select multiple class=" form-control" 
+                   id="school_class_id" name="school_class_id" [(ngModel)] = "myclasses">
+                   <option *ngFor="let c of classes; let i = index" value={{c.id}}>{{ c.name}}</option>
+                  </select>
+                    
+                        
+                    </div>
+                  
+                    
+                  
+                    <div class="modal-footer">
+                      <button
+                       type="submit" class="btn btn-link">Save Changes</button>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-link"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <input type="hidden" id="type" name="type" [(ngModel)]="type" />
+              </form>
+            
+          </div>
+            
+     
+    
+  </div>
+</div>
+</div>
+
+
+
+<div
+class="modal fade"
+id="add-store-bill-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="add-store-bill-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      
+         
+            <div class="modal-content">
+              <form  #addClassForm="ngForm" (ngSubmit)="onSubmitStoreForm(addClassForm)" >
+                <div class="modal-header">
+                  <h4 class="modal-title">New Store Bill</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-hidden="true"
+                  >
+                    <i class="material-icons">clear</i>
+                  </button>
+                </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="name" class="">Bill Name</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                         required
+                         />
+                         <span class="error">Amount is required</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="amount" class="">Amount</label>
+                        <input type="text" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control" id="amount" name="amount" [(ngModel)]="amount" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Amount is required</span>
+                      </div> 
+                      <div class="form-group">
+                        <label for="description" class="">Description</label>
+                        <input type="text"  class="form-control" id="description" name="description" [(ngModel)]="description" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Description is required</span>
+                      </div> 
+                    
+                        
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                       type="submit" class="btn btn-link">Save Changes</button>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-link"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <input type="hidden" id="type" name="type" [(ngModel)]="type" />
+              </form>
+            
+          </div>
+            
+     
+    
+  </div>
+</div>
+</div>
+
+
+
+
+<div
+class="modal fade"
+id="add-general-bill-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="add-general-bill-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      
+         
+            <div class="modal-content">
+              <form  #addClassForm="ngForm" (ngSubmit)="onSubmitGeneralForm(addClassForm)" >
+                <div class="modal-header">
+                  <h4 class="modal-title">New General Bill</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-hidden="true"
+                  >
+                    <i class="material-icons">clear</i>
+                  </button>
+                </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="name" class="">Bill Name</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                         required
+                         />
+                         <span class="error">Amount is required</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="amount" class="">Amount</label>
+                        <input type="text" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control" id="amount" name="amount" [(ngModel)]="amount" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Amount is required</span>
+                      </div> 
+                      <div class="form-group">
+                        <label for="description" class="">Description</label>
+                        <input type="text"  class="form-control" id="description" name="description" [(ngModel)]="description" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Description is required</span>
+                      </div> 
+                   
+                       
+                        
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                       type="submit" class="btn btn-link">Save Changes</button>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-link"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <input type="hidden" id="type" name="type" [(ngModel)]="type" />
+              </form>
+            
+          </div>
+            
+     
+    
+  </div>
+</div>
+</div>
+
+
+<div
+class="modal fade"
+id="add-specificcompulsory-bill-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="add-store-bill-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      
+         
+            <div class="modal-content">
+              <form  #addClassForm="ngForm" (ngSubmit)="onSubmitSpecificCompulsoryForm(addClassForm)" >
+                <div class="modal-header">
+                  <h4 class="modal-title">Compulsory Bill</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-hidden="true"
+                  >
+                    <i class="material-icons">clear</i>
+                  </button>
+                </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="name" class="">Bill Name</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                         required
+                         />
+                         <span class="error">Amount is required</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="amount" class="">Amount</label>
+                        <input type="text" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control" id="amount" name="amount" [(ngModel)]="amount" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Amount is required</span>
+                      </div> 
+                      <div class="form-group">
+                        <label for="description" class="">Description</label>
+                        <input type="text"  class="form-control" id="description" name="description" [(ngModel)]="description" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Description is required</span>
+                      </div> 
+                    
+                        
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                       type="submit" class="btn btn-link">Save Changes</button>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-link"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <input type="hidden" id="type" name="type" [(ngModel)]="type" />
+              </form>
+            
+          </div>
+            
+     
+    
+  </div>
+</div>
+</div>
+
+
+
+
+
+<div 
+class="modal fade"
+id="edit-compulsory-bill-modal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="edit-compulsory-bill-modal"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+      
+         
+            <div class="modal-content">
+              <form  #addEditBillForm="ngForm" (ngSubmit)="onSubmitEditBillForm(addEditBillForm)" >
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Compulsory Bill</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-hidden="true"
+                  >
+                    <i class="material-icons">clear</i>
+                  </button>
+                </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="name" class="">Bill Name</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required autocomplete="off"
+                         required
+                         />
+                         <span class="error">Amount is required</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="amount" class="">Amount</label>
+                        <input type="text" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control" id="amount" name="amount" [(ngModel)]="amount" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Amount is required</span>
+                      </div> 
+                      <div class="form-group">
+                        <label for="description" class="">Description</label>
+                        <input type="text"  class="form-control" id="description" name="description" [(ngModel)]="description" required autocomplete="off"
+                         required
+                         
+                         />
+                         
+                         <span class="error">Description is required</span>
+                      </div> 
+                      <label for="amount" class="">Select Class</label>         
+                      <select multiple class=" form-control" 
+                   id="school_class_id" name="school_class_id" [(ngModel)] = "myclasses">
+                   <option *ngFor="let c of classes; let i = index" value={{c.id}}>{{ c.name}}</option>
+                  </select>
+                    
+                        
+                    </div>
+                  
+                    
+                  
+                    <div class="modal-footer">
+                      <button
+                       type="submit" class="btn btn-link">Save Changes</button>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-link"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <input type="hidden" id="type" name="type" [(ngModel)]="type" />
+              </form>
+            
+          </div>
+            
+     
+    
+  </div>
+</div>
+</div>
+
